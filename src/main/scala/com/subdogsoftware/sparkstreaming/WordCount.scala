@@ -16,10 +16,10 @@ object WordCount {
     Logger.getLogger("org").setLevel(Level.ERROR)
     
      // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "WordCount")   
-    
+    val sc = new SparkContext("local[*]", "WordCount")
+
     // Read each line of my book into an RDD
-    val input = sc.textFile(getClass.getResource("/book.txt").getPath)
+    val input = sc.textFile("/home/anavarro/IdeaProjects/SparkStreammingExamples/src/main/resources/book.txt")
     
     // Split into words separated by a space character
     val words = input.flatMap(x => x.split(" "))
@@ -32,4 +32,3 @@ object WordCount {
   }
   
 }
-
