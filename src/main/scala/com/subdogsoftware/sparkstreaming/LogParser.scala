@@ -26,8 +26,10 @@ object LogParser {
     val pattern = apacheLogPattern()
 
     // Create a socket stream to read log data published via netcat on port 9999 locally
-    val lines = ssc.socketTextStream("127.0.0.1", 9999, StorageLevel.MEMORY_AND_DISK_SER)
-    
+    val lines = ssc.socketTextStream("0.0.0.0", 9999, StorageLevel.MEMORY_AND_DISK_SER)
+
+    // lines.foreachRDD( rdd => rdd.foreach(println(_)))
+
     // Extract the request field from each log line
     val requests = lines.map(x => {val matcher:Matcher = pattern.matcher(x); if (matcher.matches()) matcher.group(5)})
     
